@@ -1,32 +1,27 @@
 <template lang="pug">
   .h-card.ui.card
-    .image
-      img(:src="human.picture.large")
-    .content
-      a.header {{ human.name.first }}
+    .image(v-if="human.image")
+      img(:src="human.image")
+    .content(v-if="human.fullName")
+      a.header {{ human.fullName }}
       .meta
-        span.date Joined in {{ human.registered.date }}
-      .description
-        | {{ human.name.first }} living in {{ human.location.city }}.
+        span.date Joined in {{ human.registered }}
+      .description(v-if="human.fullName && human.city")
+        | {{ human.fullName }} living in {{ human.city }}.
     .extra.content
       a
         i.user.icon
-        | {{ human.name.first }} has {{ friends.length }} friend requests
 </template>
 
 <script lang="ts">
-    import { Component, Prop, Emit, Vue } from "vue-property-decorator";
+    import { Component, Prop, Vue } from "vue-property-decorator";
 
     @Component({
-      name: 'UserCard',
-      components: {
-        HButton
-      }
+      name: 'UserCard'
     })
     export default class UserCard extends Vue {
-      @Prop()
+      @Prop() private human!: [object];
     };
-  };
 </script>
 
 <style scoped>

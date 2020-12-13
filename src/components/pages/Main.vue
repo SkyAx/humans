@@ -5,7 +5,6 @@
       v-for="(human, idx) in humans"
       :key="idx"
       :human="human"
-      :friends="human.friends"
     )
 </template>
 
@@ -27,10 +26,10 @@
         })
       },
       methods: {
-        ...mapActions('humans', ['createList'])
+        ...mapActions('humans', ['CREATE_USERS'])
       },
       created() {
-        this.createList();
+        this.CREATE_USERS(100);
       }
   })
   export default class Main extends Vue {

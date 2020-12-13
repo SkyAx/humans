@@ -1,17 +1,12 @@
 <template lang="pug">
   #app
-    Main
+    router-view
 </template>
 
 <script lang="ts">
   import { Component, Vue } from 'vue-property-decorator';
-  import Main from '@/components/Main.vue';
 
-  @Component({
-    components: {
-        Main
-    }
-  })
+  @Component({})
   export default class App extends Vue {
   }
 </script>
