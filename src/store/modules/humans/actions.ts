@@ -31,6 +31,19 @@ export const actions: ActionTree<State, State> & Actions = {
             .then((res) => {
                 const randomNumber = Math.floor(Math.random() * (80 + 1));
                 const randomNetworkRequest = res.data.results.length ? [...res.data.results.slice(randomNumber, randomNumber + 10)] : [];
+                const mappedNetworkRequest = randomNetworkRequest.map((data: any) => {
+                    return {
+                        id: data.id.value,
+                        fullName: `${data.name.first} ${data.name.last}`,
+                        city: data.location.city,
+                        image: data.picture.large,
+                        thumb: data.picture.thumbnail,
+                        registered: data.registered.date,
+                        networkRequests: [],
+                        network: [],
+                        declinedRequest: [],
+                    }
+                });
                 const mappedHumans = res.data.results.length ? res.data.results.map((data: any): Human => {
                     return {
                         id: data.id.value,
@@ -39,7 +52,7 @@ export const actions: ActionTree<State, State> & Actions = {
                         image: data.picture.large,
                         thumb: data.picture.thumbnail,
                         registered: data.registered.date,
-                        networkRequests: randomNetworkRequest,
+                        networkRequests: mappedNetworkRequest,
                         network: [],
                         declinedRequest: [],
                     } as Human
@@ -49,7 +62,9 @@ export const actions: ActionTree<State, State> & Actions = {
             .catch((err) => console.error(err))
     },
     [ActionTypes.APPROVE_AS_NETWORK]({ commit }, { user, networkRequest }) {
-        // @ts-ignore
-        commit(MutationTypes.UPDATE_HUMAN_NETWORK, { user, networkRequest })
+        commit(MutationTypes.UPDATE_HUMAN_NETWORK, { user, networkRequest, actionType: ActionTypes.APPROVE_AS_NETWORK })
+    },
+    [ActionTypes.DECLINE_AS_NETWORK]({ commit }, { user, networkRequest }) {
+        commit(MutationTypes.UPDATE_HUMAN_NETWORK, { user, networkRequest, actionType: ActionTypes.DECLINE_AS_NETWORK })
     },
 };

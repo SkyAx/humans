@@ -1,6 +1,7 @@
 {
   "name": "humans",
   "version": "0.1.0",
+  "author": "Alexander Konkov <alxndr.konkov@gmail.com>",
   "private": true,
   "scripts": {
     "serve": "vue-cli-service serve",

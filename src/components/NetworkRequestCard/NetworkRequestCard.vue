@@ -3,13 +3,13 @@
     .ui.cards
       .card
         .content
-          img.right.floated.mini.ui.image(:src="networkRequest.picture.thumbnail")
+          img.right.floated.mini.ui.image(:src="networkRequest.thumb")
           .header
-            | {{ networkRequest.name.first }} {{ networkRequest.name.last }}
+            | {{ networkRequest.fullName }}
           .meta
-            | from {{ networkRequest.location.city }}
+            | from {{ networkRequest.city }}
           .description
-            | {{ networkRequest.name.first }} requested permission to view your contact details
+            | {{ networkRequest.fullName }} requested permission to view your contact details
         .extra.content
           .ui.two.buttons
             HButton(:text="'Approve'" :green="true" @click="onApproveRequest")
@@ -31,16 +31,16 @@
     @Prop() private networkRequest!: Human;
     @Emit('onApproveRequest')
     onApproveRequest(e: Event) {
-        return {
-            event: e,
-            request: this.networkRequest
-        };
+      return {
+        event: e,
+        request: this.networkRequest
+      };
     }
     @Emit('onDeclineRequest')
     onDeclineRequest(e: Event) {
       return {
-          event: e,
-          request: this.networkRequest
+        event: e,
+        request: this.networkRequest
       };
     }
   };

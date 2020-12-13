@@ -11,21 +11,24 @@
             :key="idx"
             :networkRequest="request"
             @onApproveRequest="approveNetworkRequest"
+            @onDeclineRequest="declineNetworkRequest"
           )
       .network-list
         h2.ui.blue.header My Network
-        NetworkRequestCard(
-          v-for="(request, idx) in user.network"
-          :key="idx"
-          :networkRequest="request"
-        )
+        .network-request-cards
+          NetworkRequestCard(
+            v-for="(request, idx) in user.network"
+            :key="idx"
+            :networkRequest="request"
+          )
       .network-list
         h2.ui.red.header Decline Requests
-        NetworkRequestCard(
-          v-for="(request, idx) in user.declinedRequest"
-          :key="idx"
-          :networkRequest="request"
-        )
+        .network-request-cards
+          NetworkRequestCard(
+            v-for="(request, idx) in user.declinedRequest"
+            :key="idx"
+            :networkRequest="request"
+          )
   </template>
 
 <script lang="ts">
@@ -41,15 +44,19 @@
       NetworkRequestCard,
       UserCard
     },
-    computed: {
-      ...mapActions('humans', ['APPROVE_AS_NETWORK'])
-    },
     methods: {
-      approveNetworkRequest: ({ event: Event, request: Human }) => {
-        this.APPROVE_AS_NETWORK({
-            user: this.user,
+      ...mapActions('humans', ['APPROVE_AS_NETWORK', 'DECLINE_AS_NETWORK']),
+      approveNetworkRequest({ event, request }) {
+          (this as any).APPROVE_AS_NETWORK({
+            user: (this as any).user,
             networkRequest: request
         });
+      },
+      declineNetworkRequest({event, request}) {
+          (this as any).DECLINE_AS_NETWORK({
+              user: (this as any).user,
+              networkRequest: request
+          });
       }
     }
   })
@@ -76,8 +83,8 @@
     h2
       padding: 0 20px
 
-    .network-request-cards
-      height: 380px
-      overflow-y: scroll
-      overflow-x: hidden
+  .network-request-cards
+    height: 380px
+    overflow-y: scroll
+    overflow-x: hidden
 </style>
