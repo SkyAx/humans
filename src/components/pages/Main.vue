@@ -1,24 +1,25 @@
 <template lang="pug">
-  .container
-    HCard(
-      v-if="humans.length"
-      v-for="(human, idx) in humans"
-      :key="idx"
-      :human="human"
-    )
+  .main
+    .ui.container.fluid
+      Profile(
+        v-if="humans.length"
+        v-for="(human, idx) in humans"
+        :key="idx"
+        :user="human"
+      )
 </template>
 
 <script lang="ts">
   import { mapGetters, mapActions } from 'vuex';
   import { Component, Vue } from 'vue-property-decorator';
   import HButton from '@/components/shared/HButton/HButton.vue';
-  import HCard from "@/components/shared/HCard/HCard.vue";
+  import Profile from "@/components/shared/Profile/Profile.vue";
 
   @Component({
       name: 'Main',
       components: {
         HButton,
-        HCard
+        Profile
       },
       computed: {
         ...mapGetters({
@@ -37,4 +38,6 @@
 </script>
 
 <style lang="sass" scoped>
+  .main
+    padding: 20px
 </style>

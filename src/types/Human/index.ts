@@ -3,6 +3,9 @@ export type Human = {
     fullName: string,
     city: string,
     image: string,
+    thumb: string,
     registered: Date,
-    friends: Human[],
+    networkRequests: Human[],
+    network: Human[]
+    declinedRequest: Human[],
 }

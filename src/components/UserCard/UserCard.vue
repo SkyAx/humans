@@ -1,16 +1,17 @@
 <template lang="pug">
   .h-card.ui.card
-    .image(v-if="human.image")
-      img(:src="human.image")
-    .content(v-if="human.fullName")
-      a.header {{ human.fullName }}
+    .image(v-if="user.image")
+      img(:src="user.image")
+    .content(v-if="user.fullName")
+      a.header {{ user.fullName }}
       .meta
-        span.date Joined in {{ human.registered }}
-      .description(v-if="human.fullName && human.city")
-        | {{ human.fullName }} living in {{ human.city }}.
+        span.date Joined in {{ user.registered }}
+      .description(v-if="user.fullName && user.city")
+        | {{ user.fullName }} living in {{ user.city }}.
     .extra.content
       a
         i.user.icon
+        | {{ user.fullName }} has {{ user.network.length }} friends
 </template>
 
 <script lang="ts">
@@ -21,7 +22,7 @@
       name: 'UserCard'
     })
     export default class UserCard extends Vue {
-      @Prop() private human!: Human[];
+      @Prop() private user!: Human[];
     };
 </script>
 

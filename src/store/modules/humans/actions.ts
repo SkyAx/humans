@@ -18,6 +18,10 @@ export interface Actions {
         { commit, dispatch }: AugmentedActionContext,
         count: number,
     ): void,
+    [ActionTypes.APPROVE_AS_NETWORK](
+        { commit }: AugmentedActionContext,
+        object: any,
+    ): void
 }
 
 export const actions: ActionTree<State, State> & Actions = {
@@ -26,20 +30,26 @@ export const actions: ActionTree<State, State> & Actions = {
             .get(count)
             .then((res) => {
                 const randomNumber = Math.floor(Math.random() * (80 + 1));
-                const randomFriends = res.data.results.length ? [...res.data.results.slice(randomNumber, randomNumber + 10)] : [];
+                const randomNetworkRequest = res.data.results.length ? [...res.data.results.slice(randomNumber, randomNumber + 10)] : [];
                 const mappedHumans = res.data.results.length ? res.data.results.map((data: any): Human => {
                     return {
                         id: data.id.value,
                         fullName: `${data.name.first} ${data.name.last}`,
                         city: data.location.city,
                         image: data.picture.large,
+                        thumb: data.picture.thumbnail,
                         registered: data.registered.date,
-                        friends: randomFriends,
+                        networkRequests: randomNetworkRequest,
+                        network: [],
+                        declinedRequest: [],
                     } as Human
                 }) : [] as Human[];
                 commit(MutationTypes.SET_HUMANS, mappedHumans);
-                dispatch(ActionTypes.UPDATE_USER_FRIENDS);
             })
             .catch((err) => console.error(err))
+    },
+    [ActionTypes.APPROVE_AS_NETWORK]({ commit }, { user, networkRequest }) {
+        // @ts-ignore
+        commit(MutationTypes.UPDATE_HUMAN_NETWORK, { user, networkRequest })
     },
 };
