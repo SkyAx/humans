@@ -5,7 +5,7 @@
       v-for="(friend, idx) in human.friends"
       :key="idx"
       :friend="friend"
-      :humanName="human.name.first"
+      :humanName="human.fullName"
     )
 </template>
 

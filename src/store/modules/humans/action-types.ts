@@ -1,3 +1,4 @@
 export enum ActionTypes {
     CREATE_USERS = 'CREATE_USERS',
+    UPDATE_USER_FRIENDS = 'UPDATE_USER_FRIENDS'
 }

@@ -15,12 +15,13 @@
 
 <script lang="ts">
     import { Component, Prop, Vue } from "vue-property-decorator";
+    import { Human } from '@/types/Human';
 
     @Component({
       name: 'UserCard'
     })
     export default class UserCard extends Vue {
-      @Prop() private human!: [object];
+      @Prop() private human!: Human[];
     };
 </script>
 
