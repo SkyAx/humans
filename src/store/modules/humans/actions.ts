@@ -21,6 +21,10 @@ export interface Actions {
     [ActionTypes.APPROVE_AS_NETWORK](
         { commit }: AugmentedActionContext,
         object: any,
+    ): void,
+    [ActionTypes.FILTER_BY_STR](
+        { commit, getters }: AugmentedActionContext,
+        str: string,
     ): void
 }
 
@@ -66,5 +70,9 @@ export const actions: ActionTree<State, State> & Actions = {
     },
     [ActionTypes.DECLINE_AS_NETWORK]({ commit }, { user, networkRequest }) {
         commit(MutationTypes.UPDATE_HUMAN_NETWORK, { user, networkRequest, actionType: ActionTypes.DECLINE_AS_NETWORK })
+    },
+    [ActionTypes.FILTER_BY_STR]({ getters, commit }, str ) {
+        const result = getters.HUMANS.filter((human: Human) => human.fullName.toLowerCase().includes(str.toLowerCase()));
+        commit(MutationTypes.SET_FILTERED_ELEMENTS, result)
     },
 };

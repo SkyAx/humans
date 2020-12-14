@@ -7,6 +7,7 @@ import { Human } from '@/types/Human';
 export type Mutations<S = State> = {
     [MutationTypes.SET_HUMANS](state: S, payload: [Human]): void,
     [MutationTypes.UPDATE_HUMAN_NETWORK](state: S, payload: any): void,
+    [MutationTypes.SET_FILTERED_ELEMENTS](state: S, payload: any): void,
 }
 
 export const mutations: MutationTree<State> & Mutations = {
@@ -37,4 +38,7 @@ export const mutations: MutationTree<State> & Mutations = {
             }
         })
     },
+    [MutationTypes.SET_FILTERED_ELEMENTS](state, payload: Human[]) {
+        state.filteredHumans = payload;
+    }
 }

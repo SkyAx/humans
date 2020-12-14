@@ -22,7 +22,7 @@
       name: 'UserCard'
     })
     export default class UserCard extends Vue {
-      @Prop() private user!: Human[];
+      @Prop() private user!: Human;
     };
 </script>
 
